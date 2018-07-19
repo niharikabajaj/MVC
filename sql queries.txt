@@ -68,8 +68,6 @@ select count(emp_ID) as emp_count, Present_Address FROM Employee GROUP BY Presen
 
 SELECT emp_ID, Name, ISNULL(PIN,0) as newPIN from Employee
 
-select * from Employee
-
 select Employee.emp_ID, Employee.Name, Employee.Present_Address, Designation.desg_Description, 
 Organisation.org_Description from ((Employee inner join Designation on Employee.Designation_ID=Designation.desg_ID)
 inner join Organisation on Employee.Organisation_ID = Organisation.org_ID)
@@ -77,8 +75,11 @@ inner join Organisation on Employee.Organisation_ID = Organisation.org_ID)
 select Employee.emp_ID, Employee.Name, Designation.desg_Description from Employee left join Designation 
 on Employee.Designation_ID = Designation.desg_ID
 
+select Organisation.org_Description, Employee.Organisation_ID from Employee right join Organisation 
+on Employee.Organisation_ID = Organisation.org_ID group by Organisation.org_Description, Employee.Organisation_ID
+
 select Employee.emp_ID, Employee.Name,Organisation.org_Description, Employee.Organisation_ID from Employee right join Organisation 
-on Employee.Organisation_ID = Organisation.org_ID 
+on Employee.Organisation_ID = Organisation.org_ID
 
 create procedure selEmployees
 as
@@ -134,8 +135,6 @@ WHERE emp_ID<1006;
 
 select * from view_Emp
 
-select * from Designation
-
 select Name, Present_Address,
 case
   when  Name like '%A%'  then 'contains A'
@@ -156,3 +155,5 @@ order by e1.Present_Address
 
 select e.name, o.org_Description 
 from employee e cross join Organisation o
+
+
